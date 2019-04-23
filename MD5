@@ -1,4 +1,4 @@
-9eeb4376dad12f33fb63f67302a5c32c *DESCRIPTION
+b2d374c347683ca61ca27b4f7e88fbdd *DESCRIPTION
 73356289378fcdaa821fee32031e7a8a *NAMESPACE
 c411bc88d55a44ca50b7e070377ab915 *R/EXhaps.R
 ef35ff8dcc7490729c3977a341898266 *R/EXmuts.R
@@ -10,7 +10,7 @@ ef35ff8dcc7490729c3977a341898266 *R/EXmuts.R
 a967ac711c3ed4161c17a7da990d62e9 *R/hg_exons.R
 e6e09cbb4fe1e9fada2c31a86d9f3e5d *R/identifyPathwaySNVs.R
 682b44e408c1ffd6f2b38db81f2446ba *R/marker_map_functions.R
-4403eb87a3edbfc4378b221f7b82c68f *R/sim_StudySeqFunctions.R
+004d87169bb1616984e1cbe4bd30c246 *R/sim_StudySeqFunctions.R
 20668ef6f294ff0b67d172776f3c8a8a *R/sim_gameteFunctions.R
 83490bc19b610ec5048a5c5b152daf6b *R/sim_seqFunctions.R
 741f651922b81c9f7a0d954e4860a22b *R/study_peds.R
@@ -24,8 +24,8 @@ b1c0aa065a723d190e3432fcb1ffbe0e *data/hg_apopPath.rdata
 09699a0440fb70eeb439e9e0e416b96b *data/hg_exons.rdata
 a912c1c7e88cede8ae21a0526176cf2c *data/study_peds.rdata
 9d049541a5dbb1bbabda9263e0b0a4e7 *inst/doc/SimRVSequences.R
-8d388f3961b808d06648da75407cc824 *inst/doc/SimRVSequences.Rmd
-7d2ae9f5f156f366193ee6ab87bd60a5 *inst/doc/SimRVSequences.html
+eb48cf5cebfd0ced9dd253bc6935d7c6 *inst/doc/SimRVSequences.Rmd
+b8286b01c294cb46578e7c2a5414c219 *inst/doc/SimRVSequences.html
 7062b1170cd4d06b5a848be088f7c334 *man/EXhaps.Rd
 ea8a0e98c85c1497a7eefd706f8e7b0b *man/EXmuts.Rd
 94bd7f159f815cbdd02fab7c7c550321 *man/affected_allele_count.Rd
@@ -58,7 +58,7 @@ be8b29ed65f0294b5125fc3acd117a3a *man/read_slim.Rd
 ec191c9dac7085ed2447683263dea4f8 *man/reduce_to_events.Rd
 1105a32fa714354c54849808e87d4042 *man/remove_allWild.Rd
 51eb4b0b213eed238ac3ce2219b63056 *man/sim_FGenos.Rd
-c833f8bb1d7313b05dc0628938a1ef71 *man/sim_RVstudy.Rd
+aa79022df4d1246e03bf9a376363a579 *man/sim_RVstudy.Rd
 0cf9ffeaab5e9fb867176d5ab479ef55 *man/sim_chiasmataPositions.Rd
 bb8d6874db5fa0bcaa8687a19cca759d *man/sim_gameteFormation.Rd
 137d0a15d678b393c7faac5ebae15764 *man/sim_gameteInheritance.Rd
@@ -75,11 +75,11 @@ b7bab5ccf2be473665eec5f5f1d645ee *tests/testthat/test_ger_parOffInfo.R
 46ef806974de471e0ed268004cf3807d *tests/testthat/test_reconstruct_fromHaplotype.R
 d7d922557a29b562fdef1eda85f4fff8 *tests/testthat/test_reduce_to_events.R
 d83db3faafc7ee1adb670a2984062921 *tests/testthat/test_remove_allWild.R
-e68da639da7d48eeb9cff741b572f676 *tests/testthat/test_sim_RVstudy.R
+9d9d707de8d5468cd1bc02dd2a583acb *tests/testthat/test_sim_RVstudy.R
 e7cd933cb4c6e4542e430debc01afd07 *tests/testthat/test_sim_chiasmataPositions.R
 2bd2992e905ae49c0184b2441e03fa2a *tests/testthat/test_sim_gameteFormation.R
 bf0e3a2aae85fa26f259c6aebaccdc5a *tests/testthat/test_sim_gameteInheritance.R
 a335e6d5e7b31cd1373203a9380127cb *tests/testthat/test_sim_haploidFormation.R
-8d388f3961b808d06648da75407cc824 *vignettes/SimRVSequences.Rmd
+eb48cf5cebfd0ced9dd253bc6935d7c6 *vignettes/SimRVSequences.Rmd
 b06a3017bdc1678bd93838cb8df4fbe0 *vignettes/flowchart.png
 642c332573902b83e280f7f3ab3f7b3b *vignettes/singlechromgametes.png

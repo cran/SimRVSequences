@@ -15,7 +15,7 @@ toy_muts <- data.frame(colID = seq(1:10),
                                            replace = TRUE, prob = c(0.2, 0.8)),
                        is_CRV = sample(c(rep(FALSE, 9), TRUE), size = 10))
 
-toy_muts$marker = paste0(toy_muts$chrom, sep = "_", toy_muts$position)
+toy_muts$marker <- paste0(toy_muts$chrom, sep = "_", toy_muts$position)
 
 #---------------------#
 # Errors and Warnings #
@@ -104,6 +104,17 @@ test_that("Error if de novo mutations detected", {
 #----------------#
 # Output testing #
 #----------------#
+
+toy_haps <- sparseMatrix(i = seq(1:10), j = seq(1:10), x = rep(1, 10))
+toy_muts <- data.frame(colID = seq(1:10),
+                       chrom = rep(1, 10),
+                       position = round(seq(1001, 2000001, length.out = 10)*1000),
+                       pathwaySNV = sample(x = c(TRUE, FALSE), size = 10,
+                                           replace = TRUE, prob = c(0.2, 0.8)),
+                       is_CRV = sample(c(rep(FALSE, 9), TRUE), size = 10))
+
+toy_muts$marker <- paste0(toy_muts$chrom, sep = "_", toy_muts$position)
+toy_muts$afreq <- round(runif(10, min = 0, max = 0.005), digits = 6)
 
 test_that("rows of haplo_map are equal to rows ped_haplos", {
 

@@ -139,6 +139,8 @@ seqDat = sim_RVstudy(ped_files = imb_ped2,
 }
 \references{
 Roeland E. Voorrips and Chris A Maliepaard. (2012). \emph{The simulation of meiosis in diploid and tetraploid organisms using various genetic models}. BMC Bioinformatics, 13:248.
+
+Christina Nieuwoudt, Angela Brooks-Wilson, and Jinko Graham. (2019). \emph{SimRVSequences: an R package to simulate genetic sequence data for pedigrees.} <doi:10.1101/534552>.
 }
 \seealso{
 \code{\link{sim_RVped}}, \code{\link{read_slim}}, \code{\link{summary.famStudy}}

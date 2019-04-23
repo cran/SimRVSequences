@@ -249,7 +249,7 @@ From the output above we see that we have selected a pool of 16 causal variants 
 head(EXmuts, n = 4)
 ```
 
-Observe from the output above that `EXmuts` now contains the variable `is_CRV`.  The `sim_RVstudy` function (discussed in section 5) will sample a causal variant for each family in the study from the SNVs for which `is_CRV = TRUE`, so that different families may segregate different rare variants. Upon identifying the familial cRV we then sample haplotypes for each founder from the distribution of haplotypes conditioned on the founder's cRV status.  This ensures that the cRV is introduced by the correct founder.
+Observe from the output above that `EXmuts` now contains the variable `is_CRV`, which identifies potential causal rare variants.  The `sim_RVstudy` function (discussed in section 5) samples a single causal variant for each family, according to its allele frequency in the population, from the SNVs for which `is_CRV = TRUE`. Hence, different families may segregate different causal rare variants. Upon identifying the familial cRV we then sample haplotypes for each founder from the distribution of haplotypes conditioned on the founder's cRV status.  This ensures that the cRV is introduced by the correct founder.
  
 
 # Prepare Pedigree Data

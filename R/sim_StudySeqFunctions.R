@@ -193,6 +193,8 @@ remove_allWild <- function(f_haps, SNV_map){
 #'
 #' @references Roeland E. Voorrips and Chris A Maliepaard. (2012). \emph{The simulation of meiosis in diploid and tetraploid organisms using various genetic models}. BMC Bioinformatics, 13:248.
 #'
+#' @references Christina Nieuwoudt, Angela Brooks-Wilson, and Jinko Graham. (2019). \emph{SimRVSequences: an R package to simulate genetic sequence data for pedigrees.} <doi:10.1101/534552>.
+#'
 #' @export
 #'
 #' @seealso \code{\link{sim_RVped}}, \code{\link{read_slim}}, \code{\link{summary.famStudy}}
@@ -323,9 +325,22 @@ sim_RVstudy <- function(ped_files, haplos, SNV_map,
             "\n ... randomly sampling one SNV to be the cRV for all pedigrees.")
   }
 
+  #set the sampling probabilities for causal rare variants
+  #When the derived allele frequencies are provided, we sample causal rare
+  #variants according to their allele frequency.  When missing, we sample
+  #cRVs with equal probability.
+  if ("afreq" %in% colnames(SNV_map)) {
+    sample_prob <- SNV_map$afreq[SNV_map$is_CRV]/sum(SNV_map$afreq[SNV_map$is_CRV])
+  } else {
+    sample_prob <- rep(1/sum(SNV_map$is_CRV), sum(SNV_map$is_CRV))
+    warning("The variable afreq is missing from SNV_map. \n ...sampling cRVs with equal probability.")
+
+  }
+
   #sample the familial cRV from the pool of potential cRVs with replacement.
   Fam_RVs <- sample(x = SNV_map$marker[SNV_map$is_CRV],
                     size = length(FamIDs),
+                    prob = sample_prob,
                     replace = TRUE)
 
   #Given the location of familial risk variants, sample familial founder

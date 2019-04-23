@@ -11,7 +11,7 @@
 
 <meta name="author" content="Christina Nieuwoudt and Jinko Graham" />
 
-<meta name="date" content="2019-03-08" />
+<meta name="date" content="2019-04-23" />
 
 <title>SimRVSequences</title>
 
@@ -306,7 +306,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">SimRVSequences</h1>
 <h4 class="author"><em>Christina Nieuwoudt and Jinko Graham</em></h4>
-<h4 class="date"><em>2019-03-08</em></h4>
+<h4 class="date"><em>2019-04-23</em></h4>
 
 </div>
 
@@ -574,7 +574,7 @@ head(EXmuts, n = 4)</code></pre>
 ## 2     2     1  3411725 0.00005  1_3411725      FALSE  FALSE
 ## 3     3     1  3468928 0.00050  1_3468928      FALSE  FALSE
 ## 4     4     1 21578402 0.00025 1_21578402      FALSE  FALSE</code></pre>
-<p>Observe from the output above that <code>EXmuts</code> now contains the variable <code>is_CRV</code>. The <code>sim_RVstudy</code> function (discussed in section 5) will sample a causal variant for each family in the study from the SNVs for which <code>is_CRV = TRUE</code>, so that different families may segregate different rare variants. Upon identifying the familial cRV we then sample haplotypes for each founder from the distribution of haplotypes conditioned on the founder’s cRV status. This ensures that the cRV is introduced by the correct founder.</p>
+<p>Observe from the output above that <code>EXmuts</code> now contains the variable <code>is_CRV</code>, which identifies potential causal rare variants. The <code>sim_RVstudy</code> function (discussed in section 5) samples a single causal variant for each family, according to its allele frequency in the population, from the SNVs for which <code>is_CRV = TRUE</code>. Hence, different families may segregate different causal rare variants. Upon identifying the familial cRV we then sample haplotypes for each founder from the distribution of haplotypes conditioned on the founder’s cRV status. This ensures that the cRV is introduced by the correct founder.</p>
 </div>
 </div>
 <div id="prepare-pedigree-data" class="section level1">
@@ -716,27 +716,27 @@ plot(study_seq$ped_files[study_seq$ped_files$FamID == 3, ],
 <p>Next, we look at the sparse matrix, <code>ped_haplos</code>, which is contained in the <code>famStudy</code> object. This sparse matrix contains simulated haplotype data.</p>
 <pre class="r"><code># View the first 15 haplotypes in ped_haplos
 study_seq$ped_haplos[1:15, ]</code></pre>
-<pre><code>## 15 x 24 sparse Matrix of class &quot;dgCMatrix&quot;
-##                                                      
-##  [1,] . . 1 . . . . . . . . . . . . . . . . . . . . .
-##  [2,] . . . . . . . . . . . . . . . . . . . . . . . .
-##  [3,] . . . . . . . . . . . . . . . 1 . . . . . . . .
-##  [4,] 1 . . 1 . . . . . . . . . . . . . . . . . . . .
-##  [5,] . . . 1 . . . . . . . . . . . 1 . . . . . . . .
-##  [6,] . . 1 . . . . . . . . . . . . . . . . . . . . .
-##  [7,] . . . 1 . . . . . . . . . . . 1 . . . . . . . .
-##  [8,] . . 1 . . . . . . . . . . . . . . . . . . . . .
-##  [9,] 1 . . . . . . . . . . . . . . . . . . . . . . .
-## [10,] . . 1 . . . . . . . . . . . . . . . . . . . . .
-## [11,] . 1 . . . . . . . . . . . . . . . . . . 1 . . .
-## [12,] . . . . . . . . . . . . . . . . . . . . . . . .
-## [13,] . . . . . . . . . . . . . . . . . . . . . . . .
-## [14,] . . . . . . . . . . . . . . . . . 1 . . . . . .
-## [15,] . . . . . . . . . . . . . . . . . . . . . . . .</code></pre>
+<pre><code>## 15 x 25 sparse Matrix of class &quot;dgCMatrix&quot;
+##                                                        
+##  [1,] . . . 1 . . . . . . . . . . . . . . . . . . . . .
+##  [2,] . . . . . . . . . . . . . . . . . . . . . . . . .
+##  [3,] . . . . . . . . . . . . . . . . 1 . . . . . . . .
+##  [4,] 1 . . . 1 . . . . . . . . . . . . . . . . . . . .
+##  [5,] . . . . . . . . . . . . . . . . . . . . . . . . .
+##  [6,] . . . 1 . . . . . . . . . . . . . . . . . . . . .
+##  [7,] 1 . . . 1 . . . . . . . . . . . 1 . . . . . . . .
+##  [8,] . . . 1 . . . . . . . . . . . . . . . . . . . . .
+##  [9,] . . . . . . . . . . . . . . . . . . . . . . . . .
+## [10,] . . . 1 . . . . . . . . . . . . . . . . . . . . .
+## [11,] . 1 . . . . . . . . . . . . . . . . . . . 1 . . .
+## [12,] . . . . . . . . . . . . . . . . . . . . . . . . .
+## [13,] . . . . . . . . . . . . . . . . . . . . . . . . .
+## [14,] . . . . . . . . . . . . . . . . . . 1 . . . . . .
+## [15,] . . . . . . . . . . . . . . . . . . 1 . . . . . .</code></pre>
 <p>The <code>ped_haplos</code> matrix contains the haplotype data for each individual in the <code>ped_files</code> output.</p>
 <pre class="r"><code># Determine the dimensions of ped_haplos
 dim(study_seq$ped_haplos)</code></pre>
-<pre><code>## [1] 62 24</code></pre>
+<pre><code>## [1] 62 25</code></pre>
 <pre class="r"><code># Determine the dimensions of EXhaps
 dim(EXhaps)</code></pre>
 <pre><code>## [1] 20000   500</code></pre>
@@ -750,8 +750,8 @@ head(study_seq$SNV_map, n = 4)</code></pre>
 <pre><code>##   colID chrom  position   afreq      marker pathwaySNV is_CRV
 ## 1     1     1  45043357 0.00310  1_45043357      FALSE  FALSE
 ## 2     2     1 236599491 0.00895 1_236599491      FALSE  FALSE
-## 3     3     2 201284953 0.00010 2_201284953       TRUE   TRUE
-## 4     4     3  47610321 0.00685  3_47610321      FALSE  FALSE</code></pre>
+## 3     3     2   3960458 0.00535   2_3960458      FALSE  FALSE
+## 4     4     2 201284953 0.00010 2_201284953       TRUE   TRUE</code></pre>
 <p>The output <code>SNV_map</code> catalogs the SNVs, i.e. columns, in <code>ped_haplos</code>. For example, the first column in <code>ped_haplos</code> is a SNV located on chromosome 1 at position 45043357.</p>
 </div>
 <div id="the-haplo_map-data-frame" class="section level3">
@@ -775,9 +775,9 @@ unique(study_seq$haplo_map[, c(&quot;FamID&quot;, &quot;FamCRV&quot;)])</code></
 <pre><code>##    FamID      FamCRV
 ## 1      1 2_201284953
 ## 11     2      no_CRV
-## 19     3 10_89016102
+## 19     3  8_23081797
 ## 33     4 2_201284953
-## 41     5 10_89015798</code></pre>
+## 41     5 10_89008915</code></pre>
 <p>From the output above, we see that families 1 and 4 segregate variant <code>2_201284953</code>, family 2 does not segregate any SNV in the pool of causal rare variants, family 3 segregates variant <code>10_89016102</code>, and family 5 segregates variant <code>10_89015798</code>. Note that family 2 does not segregate any of the SNVs in our pool of causal rare variants because it is a fully sporadic pedigree, i.e. there is no genetic predisposition to disease in this pedigree.</p>
 </div>
 </div>
@@ -797,53 +797,57 @@ names(study_summary)</code></pre>
 <p>From the output above, we see that when supplied an object of class <code>famStudy</code> the <code>summary</code> function returns a list containing two items: <code>fam_allele_count</code> and <code>pathway_count</code>. The item <code>fam_allele_count</code> is a matrix that includes counts of the SNVs shared among the disease-affected relatives in each pedigree.</p>
 <pre class="r"><code># view fam_allele_count
 study_summary$fam_allele_count</code></pre>
-<pre><code>##      FamID 1_45043357 1_236599491 2_201284953 3_47610321 4_2249748
-## [1,]     1          1           0           4          2         0
-## [2,]     2          0           2           0          0         0
-## [3,]     3          0           0           0          0         0
-## [4,]     4          0           0           3          0         0
-## [5,]     5          0           0           0          0         1
-##      5_77691934 5_115614755 8_144514988 10_14935490 10_89015798
-## [1,]          0           0           0           0           0
-## [2,]          0           0           0           0           0
-## [3,]          0           0           2           0           0
-## [4,]          0           1           0           0           0
-## [5,]          1           0           0           1           4
-##      10_89016102 12_8946339 12_26936616 15_73325402 17_58007302
-## [1,]           0          2           0           0           0
-## [2,]           0          0           0           0           3
-## [3,]           4          0           4           0           0
-## [4,]           0          0           0           0           0
-## [5,]           0          0           0           1           0
-##      21_33437240 21_33449698 22_50460703
-## [1,]           0           0           0
-## [2,]           0           0           0
-## [3,]           0           2           1
-## [4,]           2           0           0
-## [5,]           0           1           0</code></pre>
+<pre><code>##      FamID 1_45043357 1_236599491 2_3960458 2_201284953 3_47610321
+## [1,]     1          1           0         0           4          1
+## [2,]     2          0           3         0           0          0
+## [3,]     3          0           0         3           0          0
+## [4,]     4          0           0         0           3          0
+## [5,]     5          0           0         0           0          0
+##      3_49154162 3_129583578 4_2249748 4_168989553 5_77691934 5_115614755
+## [1,]          0           0         0           0          0           0
+## [2,]          0           0         0           0          0           0
+## [3,]          1           1         0           1          0           0
+## [4,]          0           0         0           0          0           1
+## [5,]          0           0         1           0          1           0
+##      7_101314288 8_23081797 8_144514988 10_89008915 12_8946339 12_26936616
+## [1,]           0          0           0           0          1           0
+## [2,]           0          0           0           0          0           0
+## [3,]           2          4           2           0          0           2
+## [4,]           0          0           0           0          0           0
+## [5,]           0          0           0           4          0           0
+##      15_63129900 17_58007302 21_33437240 21_33449698 22_50460703
+## [1,]           0           0           0           0           0
+## [2,]           1           2           0           0           0
+## [3,]           0           0           0           3           2
+## [4,]           0           0           2           0           0
+## [5,]           0           0           0           0           0</code></pre>
 <p>Looking at the output above, we see that only one affected relative in family 1 carries a copy of the first marker, <code>1_45043357</code>. It is noteworthy that the disease-affected relative in families 1 and 4 carry so many copies of SNV <code>2_201284953</code>. Not too surprisingly, this is the causal rare variant for these two families.</p>
 <p>The item <code>pathway_count</code> is a data frame that catalogs the total number of SNVs observed in disease-affected study participants.</p>
 <pre class="r"><code># view pathway_count
 study_summary$pathway_count</code></pre>
 <pre><code>##    chrom  position      marker total is_CRV pathwaySNV
 ## 1      1  45043357  1_45043357     1  FALSE      FALSE
-## 2      1 236599491 1_236599491     2  FALSE      FALSE
-## 3      2 201284953 2_201284953     7   TRUE       TRUE
-## 4      3  47610321  3_47610321     2  FALSE      FALSE
-## 7      4   2249748   4_2249748     1  FALSE      FALSE
-## 9      5  77691934  5_77691934     1  FALSE      FALSE
-## 10     5 115614755 5_115614755     1  FALSE      FALSE
-## 12     8 144514988 8_144514988     2  FALSE      FALSE
-## 13    10  14935490 10_14935490     1  FALSE      FALSE
-## 14    10  89015798 10_89015798     4   TRUE       TRUE
-## 15    10  89016102 10_89016102     4   TRUE       TRUE
-## 16    12   8946339  12_8946339     2  FALSE      FALSE
-## 17    12  26936616 12_26936616     4  FALSE      FALSE
-## 19    15  73325402 15_73325402     1  FALSE      FALSE
-## 21    17  58007302 17_58007302     3  FALSE      FALSE
-## 22    21  33437240 21_33437240     2  FALSE       TRUE
-## 23    21  33449698 21_33449698     3  FALSE       TRUE
-## 24    22  50460703 22_50460703     1  FALSE      FALSE</code></pre>
+## 2      1 236599491 1_236599491     3  FALSE      FALSE
+## 3      2   3960458   2_3960458     3  FALSE      FALSE
+## 4      2 201284953 2_201284953     7   TRUE       TRUE
+## 5      3  47610321  3_47610321     1  FALSE      FALSE
+## 6      3  49154162  3_49154162     1  FALSE      FALSE
+## 7      3 129583578 3_129583578     1  FALSE      FALSE
+## 8      4   2249748   4_2249748     1  FALSE      FALSE
+## 9      4 168989553 4_168989553     1  FALSE      FALSE
+## 10     5  77691934  5_77691934     1  FALSE      FALSE
+## 11     5 115614755 5_115614755     1  FALSE      FALSE
+## 12     7 101314288 7_101314288     2  FALSE      FALSE
+## 14     8  23081797  8_23081797     4   TRUE       TRUE
+## 15     8 144514988 8_144514988     2  FALSE      FALSE
+## 16    10  89008915 10_89008915     4   TRUE       TRUE
+## 17    12   8946339  12_8946339     1  FALSE      FALSE
+## 18    12  26936616 12_26936616     2  FALSE      FALSE
+## 19    15  63129900 15_63129900     1  FALSE      FALSE
+## 22    17  58007302 17_58007302     2  FALSE      FALSE
+## 23    21  33437240 21_33437240     2  FALSE       TRUE
+## 24    21  33449698 21_33449698     3  FALSE       TRUE
+## 25    22  50460703 22_50460703     2  FALSE      FALSE</code></pre>
 <p>From <code>pathway_count</code>, we see that there are several SNVs carried by more than 1 disease-affected study participants; however, only 5 of the SNVs carried by more than one individual reside in the pathway of interest.</p>
 </div>
 </div>
