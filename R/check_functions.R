@@ -128,12 +128,6 @@ check_ped <- function(ped_file){
     }
   }
 
-  #check to make sure that only 1 founder introduced the causal rare variant
-  if (sum(ped_file[is.na(ped_file$dadID), c("DA1", "DA2")]) > 1) {
-    stop("\n cRV introduced by multiple pedigree founders",
-         "\n Reformat DA1 and DA2 in ped_files so that only one cRV is introduced per pedigree.")
-  }
-
 }
 
 

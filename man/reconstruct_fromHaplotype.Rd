@@ -4,8 +4,8 @@
 \alias{reconstruct_fromHaplotype}
 \title{Construct offspring sequence from parental allele vector}
 \usage{
-reconstruct_fromHaplotype(parental_genotypes, CSNV_map, inherited_haplotype,
-  chiasmata_locations, REDchrom_map)
+reconstruct_fromHaplotype(parental_genotypes, CSNV_map,
+  inherited_haplotype, chiasmata_locations, REDchrom_map)
 }
 \arguments{
 \item{parental_genotypes}{The parental genotype sequence information.}

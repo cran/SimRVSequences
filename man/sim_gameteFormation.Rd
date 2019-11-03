@@ -15,7 +15,7 @@ sim_gameteFormation(chrom_map, allele_IDs, burn_in = 1000,
 \item{burn_in}{Numeric. The "burn-in" distance in centiMorgan, as defined by Voorrips and Maliepaard (2012), which is required before simulating the location of the first chiasmata with interference. By default, \code{burn_in = 1000}.
 The burn in distance in cM. By default, \code{burn_in = 1000}.}
 
-\item{gamma_params}{Numeric list of length 2. The respective shape and rate parameters of the gamma distribution used to simulate distance between chiasmata.  By default, \code{gamma_params = c(2.63, 2*2.63)}, as discussed in Voorrips and Maliepaard (2012).}
+\item{gamma_params}{Numeric list of length 2. The respective shape and rate parameters of the gamma distribution used to simulate distance between chiasmata.  By default, \code{gamma} \code{_params} \code{= c(2.63, 2*2.63)}, as discussed in Voorrips and Maliepaard (2012).}
 }
 \value{
 A list containing the following:

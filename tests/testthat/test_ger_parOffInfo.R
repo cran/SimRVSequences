@@ -21,7 +21,7 @@ test_that("Returns correct moms", {
 })
 
 
-test_that("Returns correct offspring RV status", {
+test_that("Returns correct offspring RV status for given parent", {
   red_ped <- study_peds[study_peds$FamID == sample(1:5, size = 1), ]
   #plot(red_ped)
   poinf <- get_parOffInfo(red_ped)
@@ -29,10 +29,17 @@ test_that("Returns correct offspring RV status", {
   #get offspring IDs to test
   offIDs <- poinf$offspring_ID[poinf$parent == "dadID"]
   #Offspring RVstatus returned by function
-  offRVstat <- poinf$Off_RVstatus[poinf$parent == "dadID"]
+  offRVstat_dad <- poinf$Off_RVstatus[poinf$parent == "dadID"]
+  offRVstat_mom <- poinf$Off_RVstatus[poinf$parent == "momID"]
 
-  expect_equal(as.numeric(rowSums(red_ped[which(red_ped$ID %in% offIDs), c("DA1", "DA2")])),
-               offRVstat)
+  #check inherited from dad
+  expect_equal(red_ped[which(red_ped$ID %in% offIDs), c("DA1")],
+               offRVstat_dad)
+
+  #check inherited from dad
+  expect_equal(red_ped[which(red_ped$ID %in% offIDs), c("DA2")],
+               offRVstat_mom)
+
 })
 
 

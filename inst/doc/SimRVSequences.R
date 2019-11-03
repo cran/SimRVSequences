@@ -63,20 +63,210 @@ nrow(EXmuts)
 EXhaps[1:15, 1:30]
 
 ## ------------------------------------------------------------------------
-# Recall that the variable pathwaySNV, which was created in 
-# section 3.2, is TRUE for any SNVs in the pathway of interest.
-# Here we tabulate the derived allele frequencies 
+# load the vcfR package
+library(vcfR)
+
+## ---- echo = FALSE-------------------------------------------------------
+load(url("https://github.com/simrvprojects/1000-Genomes-Exon-Data/raw/master/Vignette%20Data/vcf_chrom21.rda"))
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # specify the file path
+#  vcf_file_path <- "C:/Data/exons_chr21.vcf.gz"
+#  
+#  # import vcf file
+#  vcf_chrom21 <- read.vcfR(vcf_file_path)
+
+## ------------------------------------------------------------------------
+# determine the structure of vcf_chrom21
+str(vcf_chrom21)
+
+## ------------------------------------------------------------------------
+# View the first five rows and columns of the genotype data
+vcf_chrom21@gt[1:5, 1:5]
+
+## ------------------------------------------------------------------------
+# View first 4 mutations for the individual with ID "HG00096"
+vcf_chrom21@gt[1:4, "HG00096"]
+
+## ------------------------------------------------------------------------
+# Remove the variable named "FORMAT" and store the resulting data as genos 
+genos <- vcf_chrom21@gt[, -1]
+
+# View the first 5 mutations (i.e. rows) for the first 3 individuals (i.e. columns)
+genos[1:5, 1:3]
+
+## ------------------------------------------------------------------------
+# load the SimRVSequences package
+library(SimRVSequences)
+
+# Convert to sparseMatrix
+haplotypes <- genos2sparseMatrix(genotypes = genos)
+
+## ------------------------------------------------------------------------
+# View haplotype data for the first 3 diploid individuals and first 5 SNVs
+haplotypes[1:6, 1:5]
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # View the first two rows of the fixed data
+#  vcf_chrom21@fix[1:2, ]
+
+## ---- echo = FALSE-------------------------------------------------------
+# View the first two rows of the fixed data
+vcf_chrom21@fix[1:2, ]
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # View the meta data
+#  vcf_chrom21@meta
+
+## ---- echo = FALSE-------------------------------------------------------
+# View the meta data
+vcf_chrom21@meta
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # View the eight item in the meta data
+#  vcf_chrom21@meta[[8]]
+
+## ---- echo = FALSE-------------------------------------------------------
+# View the eight item in the meta data
+vcf_chrom21@meta[[8]]
+
+## ------------------------------------------------------------------------
+# Extract and store the mutation data using vcfR2tidy
+#
+# NOTE: setting info_only = TRUE since we do not need to re-process the genotype data
+#
+# To include INFO variables, we supply a list of variable names to "info_fields".  The 
+# names of these variables must corresponds with the INFO variable names defined in the 
+# meta data. We specify each variable type, by variable name, using the "info_types" 
+# argument.  Each INFO variable type is available in the meta data. Note that the info 
+# types for float varibles are set to numeric, i.e. "n".
+
+muts <- vcfR2tidy(vcf_chrom21, 
+                  info_only = TRUE,
+                  info_fields = c("AF", "AC", "NS", "AN",
+                                  "EAS_AF", "EUR_AF", "AFR_AF", 
+                                  "AMR_AF", "SAS_AF", "DP"),
+                  info_types = c(AF = "n", AC = "i", NS = "i", AN = "i",
+                                 EAS_AF = "n", EUR_AF = "n", AFR_AF = "n", 
+                                 AMR_AF = "n", SAS_AF = "n", DP = "i"))
+
+# View a summary of the output
+summary(muts)
+
+## ------------------------------------------------------------------------
+# View fix (contained in output named muts)
+muts$fix
+
+## ------------------------------------------------------------------------
+# View the first three rows of the fixed data in muts
+head(muts$fix, n = 3)
+
+## ------------------------------------------------------------------------
+# Recalculate the alternate allele frequency
+muts$fix$AF <- muts$fix$AC/muts$fix$AN
+
+# View the first three rows of the fixed data in muts
+head(muts$fix, n = 3)
+
+## ------------------------------------------------------------------------
+# store the fixed item in muts data as dataframe 
+mutations <- as.data.frame(muts$fix)
+
+## ------------------------------------------------------------------------
+# Create the variable colID to identify the column position of the mutation.
+# NOTE: Since mutations are already in the correct order, we accomplish this task 
+# using the seq function.  Since the mutations are stored in the columns of
+# the haplotypes matrix we determine the length of our sequence as the number of 
+# columns in haplotypes.
+mutations$colID <- seq(1:dim(haplotypes)[2])
+
+# View the first three rows of mutations
+head(mutations, n = 3)
+
+## ------------------------------------------------------------------------
+# Rename columns for consistency with expected format. 
+# "AF" should be renamed "afreq",
+# "CHROM" should be renamed "chrom", 
+# and "POS" should be renamed "position".
+colnames(mutations)[c(1, 2, 8)] = c("chrom", "position", "afreq")
+
+# View the first three rows of mutations
+head(mutations, n = 3)
+
+## ---- tidy = TRUE--------------------------------------------------------
+file_path <- 'https://raw.githubusercontent.com/simrvprojects/1000-Genomes-Exon-Data/master/Vignette%20Data/SampleInfo1.csv'
+SampleInfo <- read.csv(file_path)
+
+## ------------------------------------------------------------------------
+# View the first 6 lines of the sample data
+head(SampleInfo)
+
+## ------------------------------------------------------------------------
+file_path <- 'https://raw.githubusercontent.com/simrvprojects/1000-Genomes-Exon-Data/master/Formatted-SNVdata/SampleData.csv'
+SampleData <- read.csv(file_path)
+
+# view the first 6 lines of SampleData
+head(SampleData)
+
+## ------------------------------------------------------------------------
+# View dimensions of haplotypes
+dim(haplotypes)
+
+## ------------------------------------------------------------------------
+# Recall that the row names in the haplotypes matrix are the sample IDs
+row.names(haplotypes)[1:5]
+
+# Reduce the haplotype data to contain the 
+# unrelated individuals described in SampleData 
+haplotypes <- haplotypes[row.names(haplotypes) %in% SampleData$Sample, ]
+
+# View the new dimensions of haplotypes
+dim(haplotypes)
+
+## ------------------------------------------------------------------------
+# create SNVdata object for chromosome 21 without sample or meta data
+SNVdata_chrom21 <- SNVdata(Haplotypes = haplotypes, 
+                           Mutations = mutations,
+                           Samples = SampleData)
+str(SNVdata_chrom21)
+
+## ------------------------------------------------------------------------
+library(pryr)
+
+# Determine size of vcfR object for chromosome 21
+object_size(vcf_chrom21)
+
+# Determine size of SNVdata object for chromosome 21
+object_size(SNVdata_chrom21)
+
+## ------------------------------------------------------------------------
+# load the hg_apopPath dataset
+data("hg_apopPath")
+
+# import SNV data for chromosomes 21 and 22 and identify SNVs located in the 
+# pathway defined by hg_apopPath 
+EXdata = load_1KG(chrom = 21:22, 
+                        pathway_df = hg_apopPath)
+
+# determine the structure of EXdata
+str(EXdata)
+
+## ------------------------------------------------------------------------
+# View the first 6 SNVs contained in the pathway of interest
+head(EXdata$Mutations[EXdata$Mutations$pathwaySNV, ])
+
+## ------------------------------------------------------------------------
+# Recall that the variable pathwaySNV, which was created in section 3.2, is TRUE for 
+# any SNVs in the pathway of interest. Here we tabulate the alternate allele frequencies 
 # of the SNVs located in our pathway.
 table(EXmuts$afreq[EXmuts$pathwaySNV == TRUE])
 
 ## ------------------------------------------------------------------------
-# Create the variable 'is_CRV', which is TRUE for SNVs
-# in our pathway with derived allele frequency 5e-05 or 1e-04,
-# and FALSE otherwise
+# Create the variable 'is_CRV', which is TRUE for SNVs in our pathway with alternate 
+# allele frequency 5e-05 or 1e-04, and FALSE otherwise
 EXmuts$is_CRV <- EXmuts$pathwaySNV & EXmuts$afreq %in% c(5e-5, 1e-04)
 
-# verify that sum of the derived allele 
-# frequencies of causal SNVs is 0.001
+# verify that sum of the alternate allele frequencies of causal SNVs is 0.001
 sum(EXmuts$afreq[EXmuts$is_CRV])
 
 # determine the number of variants in our pool of causal variants
@@ -85,6 +275,47 @@ sum(EXmuts$is_CRV)
 ## ------------------------------------------------------------------------
 # view first 4 observations of EXmuts
 head(EXmuts, n = 4)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # specify FamID variable
+#  FamID = c(314, 314, 314, 314, 314, 314)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # specify ID variable
+#  ID = c(1, 2, 3, 4, 5, 6)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # specify sex variable
+#  sex = c(0, 1, 0, 1, 0, 1)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # specify dadID variable
+#  dadID = c(NA, NA, 1, 1, NA, 5)
+#  
+#  # specify momID variable
+#  momID = c(NA, NA, 2, 2, NA, 4)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # specify affected variable
+#  affected = c(FALSE, FALSE, TRUE, TRUE, FALSE, TRUE)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # specify dadID variable
+#  DA1 = c(0, 0, 0, 1, 0, 1)
+#  
+#  # specify momID variable
+#  DA2 = c(1, 0, 0, 0, 1, 1)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # combine the required information for family 314 into a dataframe
+#  fam314 <- data.frame(FamID = c(314, 314, 314, 314, 314, 314),
+#                       ID = c(1, 2, 3, 4, 5, 6),
+#                       sex = c(0, 1, 0, 1, 0, 1),
+#                       dadID = c(NA, NA, 1, 1, NA, 5),
+#                       momID = c(NA, NA, 2, 2, NA, 4),
+#                       affected = c(FALSE, FALSE, TRUE, TRUE, FALSE, TRUE),
+#                       DA1 = c(0, 0, 0, 1, 0, 1),
+#                       DA2 = c(1, 0, 0, 0, 1, 1))
 
 ## ---- echo = TRUE, eval = FALSE------------------------------------------
 #  # load the SimRVPedigree library
@@ -124,7 +355,7 @@ head(EXmuts, n = 4)
 #  
 #  stopCluster(cl) #shut down cluster
 
-## ---- fig.height = 8, fig.width = 8.6------------------------------------
+## ---- fig.height = 8, fig.width = 8.6, fig.align = 'center'--------------
 # import study peds
 data("study_peds")
 
@@ -137,16 +368,22 @@ plot(study_peds[study_peds$FamID == 3, ],
 head(study_peds, n = 4)
 
 ## ------------------------------------------------------------------------
+# construct an object of class SNVdata
+ex_data <- SNVdata(Haplotypes = EXhaps,
+                   Mutations = EXmuts)
+
+## ------------------------------------------------------------------------
 set.seed(11956)
-# simulate SNV data using sim_RVstudy
-study_seq <- sim_RVstudy(ped_files = study_peds, 
-                         SNV_map = EXmuts,
-                         haplos = EXhaps)
+
+# simulate SNV data with sim_RVstudy
+study_seq <- sim_RVstudy(ped_files = study_peds,
+                         SNV_data = ex_data)
+
 
 # determine the class of study seq
 class(study_seq)
 
-## ---- fig.height = 4.5, fig.width = 5.5----------------------------------
+## ---- fig.height = 4.5, fig.width = 5.5, fig.align = 'center'------------
 # plot the pedigree returned by sim_RVseq for family 3.
 # Since we used the affected_only option the pedigree has
 # been reduced to contain only disease-affected relatives.

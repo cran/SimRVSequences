@@ -10,7 +10,7 @@ read_slim(file_path, keep_maf = 0.01, recomb_map = NULL,
 \arguments{
 \item{file_path}{character.  The file path or URL of the .txt output file created by the outputFull() method in SLiM.}
 
-\item{keep_maf}{numeric. The largest allele frequency for retained SNVs, by default \code{keep_maf = 0.01}.  All variants with allele frequency greater than \code{keep_maf} will be removed. Please note, removing common variants is recommended for large data sets due to the limitations of data allocation in R. See details.}
+\item{keep_maf}{numeric. The largest allele frequency for retained SNVs, by default \code{keep_maf} \code{= 0.01}.  All variants with allele frequency greater than \code{keep_maf} will be removed. Please note, removing common variants is recommended for large data sets due to the limitations of data allocation in R. See details.}
 
 \item{recomb_map}{data frame. (Optional) A recombination map of the same format as the data frame returned by \code{\link{create_slimMap}}. See details.}
 
@@ -19,7 +19,7 @@ read_slim(file_path, keep_maf = 0.01, recomb_map = NULL,
 \item{recode_recurrent}{logical. When \code{TRUE} recurrent SNVs are cataloged a single observation;  by default, \code{recode_recurrent = TRUE}. See details.}
 }
 \value{
-A list containing:
+An object of class \code{\link{SNVdata}}, which inherits from a \code{list} and contains:
 
 \item{\code{Haplotypes} }{A sparse matrix of haplotypes. See details.}
 
@@ -37,17 +37,19 @@ The data frame \code{pathway_df} allows users to identify SNVs located within a 
 
 When \code{TRUE}, the logical argument \code{recode_recurrent} indicates that recurrent SNVs should be recorded as a single observation.  SLiM can model many types of mutations; e.g. neutral, beneficial, and deleterious mutations.  When different types of mutations occur at the same position carriers will experience different fitness effects depending on the carried mutation.  However, when mutations at the same location have the same fitness effects, they represent a recurrent mutation.  Even so, SLiM stores recurrent mutations separately and calculates their prevalence independently.  When the argument \code{recode_recurrent = TRUE} we store recurrent mutations as a single observation and calculate the derived allele frequency based on their combined prevalence.  This convention allows for both reduction in storage and correct estimation of the derived allele frequency of the mutation.  Users who prefer to store recurrent mutations from independent lineages as unique entries should set \code{recode_recurrent = FALSE}.
 
-The \code{read_slim} function returns a list containing two items:
+An object of class \code{\link{SNVdata}}, which inherits from a \code{list} and contains:
+The \code{read_slim} function returns an object of class \code{\link{SNVdata}}, which inherits from a \code{list} and contains the following two items:
 \enumerate{
 \item \code{Haplotypes} A sparse matrix of class dgCMatrix (see \code{\link{dgCMatrix-class}}). The columns in {Haplotypes} represent distinct SNVs, while the rows represent individual haplotypes. We note that this matrix contains two rows of data for each diploid individual in the population: one row for the maternally ihnherited haplotype and the other for the paternally inherited haplotype.
 \item \code{Mutations} A data frame cataloging SNVs in \code{Haplotypes}. The variables in the \code{Mutations} data set are described as follows:
-\tabular{ll}{
-\code{colID} \tab Associates the rows, i.e. SNVs, in \code{Mutations} to the columns of \code{Haplotypes}. \cr
-\code{chrom} \tab The chromosome that the SNV resides on. \cr
-\code{position} \tab The position of the SNV in base pairs. \cr
-\code{afreq} \tab The derived allele frequency of the SNV. \cr
-\code{marker} \tab A unique character identifier for the SNV.\cr
-\code{pathwaySNV} \tab Identifies SNVs located within the pathway of interest as \code{TRUE}. \cr
+\describe{
+\item{\code{colID}}{Associates the rows, i.e. SNVs, in \code{Mutations} to the columns of \code{Haplotypes}.}
+\item{\code{chrom}}{The chromosome that the SNV resides on.}
+\item{\code{position}}{The position of the SNV in base pairs.}
+\item{\code{afreq}}{The derived allele frequency of the SNV.}
+\item{\code{marker}}{A unique character identifier for the SNV.}
+\item{\code{type}}{The mutation type, as specified in the user's slim simulation.}
+\item{\code{pathwaySNV}}{Identifies SNVs located within the pathway of interest as \code{TRUE}.}
 }}
 
 Please note: the variable \code{pathwaySNV} will be omitted when \code{pathway_df} is not supplied to \code{read_slim}.
@@ -58,10 +60,12 @@ file_url <-
 'https://raw.githubusercontent.com/cnieuwoudt/Example--SLiMSim/master/example_SLIMout.txt'
 s_out <- read_slim(file_url)
 
-summary(s_out)
+class(s_out)
+str(s_out)
 
 
-# As seen above, read_slim returns two items.  The first is a sparse matrix
+# As seen above, read_slim returns an object of class SNVdata,
+# which  contians two items.  The first is a sparse matrix
 # named Haplotypes, which contains the haplotypes for each indiviual in the
 # simulation.  The second item is a data set named Mutations, which catalogs
 # the mutations in the Haplotypes matrix.
@@ -71,6 +75,8 @@ head(s_out$Mutations, n = 5)
 
 # view the first 20 mutations on the first 10 haplotypes
 s_out$Haplotypes[1:10, 1:20]
+
+
 }
 \references{
 Haller, B., Messer, P. W. (2017). \emph{Slim 2: Flexible, interactive forward genetic simulations}. Molecular Biology and Evolution; 34(1), pp. 230-240.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/study_seq_methods.R
 \name{is.famStudy}
 \alias{is.famStudy}
-\title{Check to see if object is of class ped}
+\title{Check to see if object is of class famStudy}
 \usage{
 is.famStudy(x)
 }
@@ -13,6 +13,6 @@ is.famStudy(x)
 Logical. Indicates if \code{x} is of class \code{ped}.
 }
 \description{
-Check to see if object is of class ped
+Check to see if object is of class famStudy
 }
 \keyword{internal}

@@ -9,7 +9,7 @@ famStudy <- function(study_data) {
   return(study_data)
 }
 
-#' Check to see if object is of class ped
+#' Check to see if object is of class famStudy
 #'
 #' @param x An R object.
 #'
@@ -24,7 +24,7 @@ is.famStudy <- function(x) {
 #'
 #' Summary function for objects of class \code{famStudy}, i.e. objects returned by the \code{\link{sim_RVstudy}} function.
 #'
-#' The \code{summary.famStudy} function returns a list containing two items.  The first item, \code{fam_allele_count}, is a matrix that contains counts of the SNVs shared by the disease-affected relatives in each pedigree. This matrix will contain a row of counts for each pedigree in the supplied \code{famSutdy} object.  The first column in \code{fam_allele_count} is named \code{FamID} and identifies each pedigree by their family identification number.  The remaining columns in \code{fam_allele_count} are named according to the respective marker names of the shared SNVs.
+#' The \code{summary.famStudy} function returns a list containing two items.  The first item, \code{fam_allele} \code{_count}, is a matrix that contains counts of the SNVs shared by the disease-affected relatives in each pedigree. This matrix will contain a row of counts for each pedigree in the supplied \code{famSutdy} object.  The first column in \code{fam_allele_count} is named \code{FamID} and identifies each pedigree by their family identification number.  The remaining columns in \code{fam_allele_count} are named according to the respective marker names of the shared SNVs.
 #'
 #' The second item returned by \code{summary.famStudy} is a data frame named \code{pathway_count}, which catalogs the SNVs shared among disease-affected study participants.  This data frame contains the following variables:
 #' \tabular{lll}{
@@ -53,24 +53,24 @@ is.famStudy <- function(x) {
 #' @examples
 #' library(SimRVSequences)
 #'
-#' #load pedigree, haplotype, and mutation data
+#' # load pedigree, haplotype, and mutation data
 #' data(study_peds)
 #' data(EXmuts)
 #' data(EXhaps)
 #'
-#' #create variable is_CRV in EXmuts to identify the causal
-#' #rare variants from which to sample familial cRVs.
+#' # create variable is_CRV in EXmuts to identify the causal
+#' # rare variants from which to sample familial cRVs.
 #' EXmuts$is_CRV = FALSE
 #' EXmuts$is_CRV[c(26, 139, 223, 228, 472)] = TRUE
 #'
-#' #supply required inputs to the sim_RVstudy function
+#' # supply required inputs to the sim_RVstudy function
 #' seqDat = sim_RVstudy(ped_files = study_peds,
-#'                      SNV_map = EXmuts,
-#'                      haplos = EXhaps)
+#'                      SNV_data = SNVdata(Haplotypes = EXhaps,
+#'                                         Mutations = EXmuts))
 #'
-#' #to count the number of SNVs shared by the disease-affected
-#' #relatives in each pedigree, supply the output returned by
-#' #sim_RVstudy to the summary function
+#' # to count the number of SNVs shared by the disease-affected
+#' # relatives in each pedigree, supply the output returned by
+#' # sim_RVstudy to the summary function
 #' summary(seqDat)
 #'
 #'

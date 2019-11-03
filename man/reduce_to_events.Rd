@@ -18,7 +18,7 @@ The locations of crossovers
 For internal use.
 }
 \details{
-For example, if coded allele vector was c(1, 1, 2), then this gamete did not participate in the second crossover,
+For example, if coded allele vector was c(1, 1, 2), then this gamete did not participate in the first crossover,
 hence the list of chiasmata event locations, say c(40, 80), would be reduced to c(80), and the coded allele vector
 would be reduced to c(1, 2). That is, there is only one crossover from haplotype 1 to 2 at position 80.
 

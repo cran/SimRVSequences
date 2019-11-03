@@ -4,21 +4,23 @@
 \alias{sim_FGenos}
 \title{Draw Founder Genotypes from Haplotype Distribution Given Familial Risk Variant}
 \usage{
-sim_FGenos(founder_ids, RV_founder, RV_founder_pat, haplos, RV_col_loc,
-  RV_pool_loc)
+sim_FGenos(founder_ids, RV_founder, founder_pat_allele, founder_mat_allele,
+  haplos, RV_col_loc, RV_pool_loc)
 }
 \arguments{
-\item{founder_ids}{Numeric list. The ID numbers of all non-seed founders.}
+\item{founder_ids}{Numeric list. The ID numbers of all founders.}
 
-\item{RV_founder}{Numeric. The ID number of the seed founder.}
+\item{RV_founder}{Numeric. The ID number(s) of the founder who introduced a cRV.}
 
-\item{RV_founder_pat}{Numeric. RV_founder_pat == 1 if RV founder inherited the RV from dad, and 0 if inherited RV from mom.}
+\item{founder_pat_allele}{Numeric list. The paternally inherited allele for each founder.}
+
+\item{founder_mat_allele}{Numeric list. The maternally inherited allele for each founder.}
 
 \item{haplos}{sparseMatrix.  The sparseMatrix of genomes returned by \code{read_slimOut}.}
 
 \item{RV_col_loc}{Numeric. The column location of the familial RV in haplos.}
 
-\item{RV_pool_loc}{The column locations of each SNV in the pool of candidate SNVs.}
+\item{RV_pool_loc}{The column locations of each SNV (in haplos)  for SNVs in the pool of cRVs.}
 }
 \value{
 list of familial founder genotypes

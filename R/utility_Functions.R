@@ -16,15 +16,25 @@ get_parOffInfo <- function(ped_file){
   colnames(mdata) = c("offspring_ID", "Gen", "parent", "parent_ID")
 
 
-  mdata$Off_RVstatus <- apply(as.data.frame(mdata[, 1]), 1, function(x){
-    sum(ped_file[which(ped_file$ID == x), which(colnames(ped_file) %in% c("DA1", "DA2"))])
-  })
+  # mdata$Off_RVstatus <- apply(as.data.frame(mdata[, 1]), 1, function(x){
+  #   sum(ped_file[which(ped_file$ID == x), which(colnames(ped_file) %in% c("DA1", "DA2"))])
+  # })
 
-  mdata$Par_DA1 <- apply(as.data.frame(mdata[, 4]), 1, function(x){
+  mdata$Off_RVstatus <- sapply(1:nrow(mdata), function(x){
+    ifelse(mdata$parent[x] == "dadID",
+           ped_file$DA1[ped_file$ID == mdata$offspring_ID[x]],
+           ped_file$DA2[ped_file$ID == mdata$offspring_ID[x]])})
+
+
+  mdata$Par_DA1 <- sapply(mdata[, 4], function(x){
     sum(ped_file[which(ped_file$ID == x), which(colnames(ped_file) == "DA1")])
   })
 
-  mdata$Par_DA2 <- apply(as.data.frame(mdata[, 4]), 1, function(x){
+  # mdata$Par_DA2 <- apply(as.data.frame(mdata[, 4]), 1, function(x){
+  #   sum(ped_file[which(ped_file$ID == x), which(colnames(ped_file) == "DA2")])
+  # })
+
+  mdata$Par_DA2 <- sapply(mdata[, 4], function(x){
     sum(ped_file[which(ped_file$ID == x), which(colnames(ped_file) == "DA2")])
   })
 
@@ -36,7 +46,7 @@ get_parOffInfo <- function(ped_file){
 #'
 #' For internal use.
 #'
-#' For example, if coded allele vector was c(1, 1, 2), then this gamete did not participate in the second crossover,
+#' For example, if coded allele vector was c(1, 1, 2), then this gamete did not participate in the first crossover,
 #' hence the list of chiasmata event locations, say c(40, 80), would be reduced to c(80), and the coded allele vector
 #' would be reduced to c(1, 2). That is, there is only one crossover from haplotype 1 to 2 at position 80.
 #'
@@ -185,7 +195,7 @@ assign_gen <- function(x){
   # this will also check to see that
   # all required fields are present
   # i.e. FamID, ID, dadID, momID, sex, and affected
-  x <- new.ped(x)
+  if (!("ped" %in% class(x))) x <- new.ped(x)
 
   Gen <- NA
   mates <- cbind(x$dadID, x$momID)

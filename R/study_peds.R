@@ -1,6 +1,6 @@
-#' Example pedigrees
+ #' Example pedigrees
 #'
-#' This data set contains ped data for five families.
+#' This data set contains \code{ped} data for five ascertiained pedigrees.  The ascertained pedigrees were simulated by the \code{sim_RVped} function, which is included with the \code{R} package \code{SimRVPedigree}.
 #'
 #' @docType data
 #'
@@ -25,6 +25,6 @@
 #' \item{proband}{Proband identification variable: \code{proband = TRUE} if the individual is the proband, and \code{FALSE} otherwise.}
 #' }
 #'
-#' @references Christina Nieuwoudt and Jinko Graham (2018). \strong{SimRVPedigree: Simulate Pedigrees Ascertained for a Rare Disease.} \emph{R package version 0.3.0}. https://CRAN.R-project.org/package=SimRVPedigree.
+#' @references Christina Nieuwoudt and Jinko Graham (2018).\strong{SimRVPedigree:Simulate Pedigrees Ascertained for a Rare Disease.}\emph{R package version 0.3.0}.https://CRAN.R-project.org/package=SimRVPedigree.
 #'
 "study_peds"

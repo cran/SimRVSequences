@@ -32,6 +32,8 @@ identify_pathwaySNVs <- function(markerDF, pathwayDF){
 #' @keywords internal
 identify_pathwayRVs_byChrom <- function(path_by_chrom, marker_map_by_chrom){
   if(nrow(path_by_chrom) == 0){
+    # if pathway does not include any data for this chromosome
+    # then none of the SNVs on this chrom are in the pathway
     marker_map_by_chrom$pathwaySNV <- FALSE
   } else {
     #since we will want to include variants that occur at the first base pair

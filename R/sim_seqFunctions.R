@@ -80,6 +80,7 @@ reconstruct_fromHaplotype <- function(parental_genotypes,
 #' @inheritParams sim_RVstudy
 #' @param ped_file Data frame. A single pedigree. Must match format of pedigree simulated by sim_RVped
 #' @param RV_marker character. The marker name of the RV locus.
+#' @param SNV_map Data frame. A data frame that catalogs the SNVs in \code{haplos}.  If the \code{\link{read_slim}} function was used to import SLiM data to \code{R}, the data frame \code{Mutations} is of the proper format for \code{SNV_map}.  However, users must add the variable \code{is_CRV} to this data frame, see details.
 #' @param founder_genos Dataframe.  A dataframe with rows corresponding to founders, and columns corresponding to markers.  Markers must be listed in same order as \code{SNV_map}.
 #'
 #' @return offspring_sequences

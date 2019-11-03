@@ -7,7 +7,7 @@
 check_SNV_map(SNV_map)
 }
 \arguments{
-\item{SNV_map}{Data frame. A data frame that catalogs the SNVs in \code{haplos}.  If the \code{\link{read_slim}} function was used to import SLiM data to \code{R}, the data frame \code{Mutations} is of the proper format for \code{SNV_map}.  However, users must add the variable \code{is_CRV} to this data frame, see details.}
+\item{SNV_map}{This argument has been deprecated. Users now supply objects of class \code{SNVdata} to argument \code{SNV_data}.}
 }
 \description{
 \strong{For internal use.}
