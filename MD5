@@ -1,5 +1,5 @@
-ca755b4f48f4b8ff7370631c5ebac6a7 *DESCRIPTION
-9a3111cc61c4f08388f7f769d5c848ae *NAMESPACE
+361e0286a102da5e12e304eea6c45442 *DESCRIPTION
+c75b039db76af910fa1f40f1e794d35d *NAMESPACE
 baf526d4931b8df970fcebbf9c0734d8 *R/EXhaps.R
 e5cfde108deb1aff6b9827ddf6be17d9 *R/EXmuts.R
 dbcfa668b21e75ad3a109908e75441cc *R/SNVdata_methods.R
@@ -16,7 +16,7 @@ e6302979349db47edf9c984d85df55d7 *R/sim_StudySeqFunctions.R
 1c35d375504c37a7a0db6d7220e5d571 *R/sim_seqFunctions.R
 c88161806d6890c0ce8f3bc2c2ee6c28 *R/study_peds.R
 5cd65182b2fed440958b4304a0125965 *R/study_seq_methods.R
-dc7f63bcce287089712ac0534fe3dd99 *R/utility_Functions.R
+ca7a30dd6fe9d1c6b53c8a7b1f1c8118 *R/utility_Functions.R
 135a02e172d75911fa3f2f8e31a82eee *R/vcf_functions.R
 c7fa2efa519dc21adc0f811b1a8d6765 *README.md
 edd87fb3d77d80cc1ab158769f1e9392 *build/vignette.rds
@@ -27,8 +27,8 @@ b1c0aa065a723d190e3432fcb1ffbe0e *data/hg_apopPath.rdata
 09699a0440fb70eeb439e9e0e416b96b *data/hg_exons.rdata
 a912c1c7e88cede8ae21a0526176cf2c *data/study_peds.rdata
 fe109acba3ebc981c9553b78f3ec150e *inst/doc/SimRVSequences.R
-9b6441cb2f90b77a3a384abc3c2bc31f *inst/doc/SimRVSequences.Rmd
-5056635d9e66a1b809a136e7779a3d19 *inst/doc/SimRVSequences.html
+be2d4734b4242c825a45e444ac89ad2e *inst/doc/SimRVSequences.Rmd
+818c45080cf8667d1ed81843618a3cbf *inst/doc/SimRVSequences.html
 3f5f95d035fa2c631076a945de5c9e18 *man/EXhaps.Rd
 839b61f199ab661fb1465a349eb0e535 *man/EXmuts.Rd
 fb7b4ad5428146ae2f364ec5ef1ea0f5 *man/SNVdata.Rd
@@ -91,7 +91,7 @@ e7cd933cb4c6e4542e430debc01afd07 *tests/testthat/test_sim_chiasmataPositions.R
 2bd2992e905ae49c0184b2441e03fa2a *tests/testthat/test_sim_gameteFormation.R
 bf0e3a2aae85fa26f259c6aebaccdc5a *tests/testthat/test_sim_gameteInheritance.R
 a335e6d5e7b31cd1373203a9380127cb *tests/testthat/test_sim_haploidFormation.R
-9b6441cb2f90b77a3a384abc3c2bc31f *vignettes/SimRVSequences.Rmd
+be2d4734b4242c825a45e444ac89ad2e *vignettes/SimRVSequences.Rmd
 43e289a47e4949b67cf21498af9e3b25 *vignettes/TimingPlot.png
 49a3e1a261148347f7824975af965d86 *vignettes/examplePed.png
 421eaee808ab4e698cb393786ea95d3f *vignettes/flowchart.png

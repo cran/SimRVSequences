@@ -189,13 +189,14 @@ convert_CM_to_BP <- function(pos_CM){ pos_CM*1000000 }
 #' @importFrom kinship2 kindepth
 #' @importFrom SimRVPedigree ped2pedigree
 #' @importFrom SimRVPedigree new.ped
+#' @importFrom methods is
 #' @keywords internal
 assign_gen <- function(x){
   # create a ped object
   # this will also check to see that
   # all required fields are present
   # i.e. FamID, ID, dadID, momID, sex, and affected
-  if (!("ped" %in% class(x))) x <- new.ped(x)
+  if (!is(x, "ped")) x <- new.ped(x)
 
   Gen <- NA
   mates <- cbind(x$dadID, x$momID)
@@ -207,7 +208,7 @@ assign_gen <- function(x){
   kd <- kindepth(ped2pedigree(x))
   Gen[kd != 0] <- kd[kd != 0]
 
-  if(class(mates) == "matrix"){
+  if(is(mates, "matrix")){
     for(i in 1:nrow(mates)){
       mate_gens <-  kd[x$ID %in% mates[i, ]]
       Gen[x$ID %in% mates[i, ]] <- max(mate_gens)
