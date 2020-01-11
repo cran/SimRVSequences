@@ -1,4 +1,4 @@
-361e0286a102da5e12e304eea6c45442 *DESCRIPTION
+f79a52e42e39bf36757012d0792220a7 *DESCRIPTION
 c75b039db76af910fa1f40f1e794d35d *NAMESPACE
 baf526d4931b8df970fcebbf9c0734d8 *R/EXhaps.R
 e5cfde108deb1aff6b9827ddf6be17d9 *R/EXmuts.R
@@ -28,7 +28,7 @@ b1c0aa065a723d190e3432fcb1ffbe0e *data/hg_apopPath.rdata
 a912c1c7e88cede8ae21a0526176cf2c *data/study_peds.rdata
 fe109acba3ebc981c9553b78f3ec150e *inst/doc/SimRVSequences.R
 be2d4734b4242c825a45e444ac89ad2e *inst/doc/SimRVSequences.Rmd
-818c45080cf8667d1ed81843618a3cbf *inst/doc/SimRVSequences.html
+356fc68601864c206467a9b3642f793a *inst/doc/SimRVSequences.html
 3f5f95d035fa2c631076a945de5c9e18 *man/EXhaps.Rd
 839b61f199ab661fb1465a349eb0e535 *man/EXmuts.Rd
 fb7b4ad5428146ae2f364ec5ef1ea0f5 *man/SNVdata.Rd
