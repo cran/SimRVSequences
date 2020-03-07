@@ -144,7 +144,8 @@ sim_seq <- function(ped_file, founder_genos,
   geno_map <- data.frame(FamID = rep(ped_file$FamID[1], length(ped_geno_IDs)),
                          ID = ped_geno_IDs,
                          affected =  rep(FALSE, length(ped_geno_IDs)),
-                         FamCRV = rep(printed_FamRV, length(ped_geno_IDs)))
+                         FamCRV = rep(printed_FamRV, length(ped_geno_IDs)),
+                         stringsAsFactors = FALSE)
 
   #identify affected individuals
   geno_map$affected[geno_map$ID %in% ped_file$ID[ped_file$affected]] <- TRUE

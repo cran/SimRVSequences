@@ -12,7 +12,7 @@ create_chrom_map <- function(SNV_map){
     c(x, range(SNV_map$position[SNV_map$chrom == x]))
   }))
 
-  chrom_map <- as.data.frame(chrom_map)
+  chrom_map <- as.data.frame(chrom_map, stringsAsFactors = TRUE)
   colnames(chrom_map) = c("chrom", "start_pos", "end_pos")
   return(chrom_map)
 }

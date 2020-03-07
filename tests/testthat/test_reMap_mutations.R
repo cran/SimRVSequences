@@ -7,7 +7,8 @@ bds <- bds[order(bds)]
 
 exDat <- data.frame(chrom     = c(1, 1, 1, 1, 1),
                     exonStart = bds[1:length(bds) %% 2 != 0],
-                    exonEnd   = bds[1:length(bds) %% 2 == 0])
+                    exonEnd   = bds[1:length(bds) %% 2 == 0],
+                    stringsAsFactors = FALSE)
 
 #supply exDat to combine_exons to combine
 # overlapping exon segments
@@ -21,7 +22,8 @@ mut_df <- data.frame(chrom = rep(1, 5),
                      position = sample(c(2:max(rec_map$endPos))[cut(2:max(rec_map$endPos),
                                                                     breaks = rec_map$endPos,
                                                                     labels = FALSE) %% 2 != 0],
-                                       size = 5))
+                                       size = 5),
+                     stringsAsFactors = FALSE)
 
 mut_df <- mut_df[order(mut_df$position), ]
 mut_df2 <- reMap_mutations(mutationDF = mut_df, recomb_map = rec_map)

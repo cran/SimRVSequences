@@ -111,7 +111,7 @@ sim_haploidFormation <- function(num_chiasmata,
   }
 
   #store as dataframe
-  haploid_mat <- as.data.frame(haploid_mat)
+  haploid_mat <- as.data.frame(haploid_mat, stringsAsFactors = FALSE)
 
   #assign gamete group (this process is equivalent to meiosis I and II
   #after we select a single gamete for inheritance, see notes.)

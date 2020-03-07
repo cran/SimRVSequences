@@ -75,7 +75,8 @@ create_slimMap <- function(exon_df, mutation_rate = 1E-8, recomb_rate = 1E-8){
                mutRate = rep(0, nrow(x)),
                type = rep("intron", nrow(x)),
                exon = rep(FALSE, nrow(x)),
-               simDist = rep(1, nrow(x)))
+               simDist = rep(1, nrow(x)),
+               stringsAsFactors = TRUE)
   })
   #set the recombination rate to zero for the first chromosome
   #Note: the first recombination rate is 0.5 for all other
@@ -91,7 +92,8 @@ create_slimMap <- function(exon_df, mutation_rate = 1E-8, recomb_rate = 1E-8){
                mutRate = rep(mutation_rate, nrow(x)),
                type = rep("exon", nrow(x)),
                exon = rep(TRUE, nrow(x)),
-               simDist = c(x$exonEnd - x$exonStart + 1))
+               simDist = c(x$exonEnd - x$exonStart + 1),
+               stringsAsFactors = TRUE)
   })
 
   #combine intron and exon data
@@ -309,7 +311,8 @@ read_slim <- function(file_path,
                         #domCoef = as.numeric(MutOut[, 6]),
                         #pop = MutOut[, 7],
                         #genNo = as.numeric(MutOut[, 8]),
-                        prevalence = as.numeric(MutOut[, 9]))
+                        prevalence = as.numeric(MutOut[, 9]),
+                        stringsAsFactors = TRUE)
 
   #add 1 to temp ID so that we can easily associate mutations
   #to columns by default slim's first tempID is 0, not 1.
