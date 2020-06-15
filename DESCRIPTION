@@ -1,7 +1,7 @@
 Package: SimRVSequences
 Type: Package
 Title: Simulate Genetic Sequence Data for Pedigrees
-Version: 0.2.4
+Version: 0.2.5
 Authors@R: c(person("Christina", "Nieuwoudt", 
                     role = c("aut", "cre"),
                     email = "cnieuwou@sfu.ca"),
@@ -17,15 +17,15 @@ Imports: SimRVPedigree (>= 0.1.0), kinship2 (>= 1.6.4), intervals (>=
         1.2-12), dplyr (>= 0.7.5), magrittr (>= 1.5), rlang (>= 0.2.0),
         methods (>= 3.5.0)
 Suggests: knitr (>= 1.13), rmarkdown (>= 0.9.6), vcfR (>= 1.8.0), pryr
-        (>= 0.1.4), testthat
+        (>= 0.1.4), testthat,
 License: GNU General Public License
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-03-07 21:04:08 UTC; cnieuwoudt
+Packaged: 2020-06-15 01:03:48 UTC; cnieuwoudt
 Author: Christina Nieuwoudt [aut, cre],
   Jinko Graham [aut]
 Repository: CRAN
-Date/Publication: 2020-03-07 23:20:05 UTC
+Date/Publication: 2020-06-15 12:20:12 UTC

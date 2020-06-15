@@ -62,9 +62,9 @@ nrow(EXmuts)
 # View the first 30 mutations of the first 15 haplotypes in EXhaps
 EXhaps[1:15, 1:30]
 
-## ------------------------------------------------------------------------
-# load the vcfR package
-library(vcfR)
+## ---- eval = FALSE-------------------------------------------------------
+#  # load the vcfR package
+#  library(vcfR)
 
 ## ---- echo = FALSE-------------------------------------------------------
 load(url("https://github.com/simrvprojects/1000-Genomes-Exon-Data/raw/master/Vignette%20Data/vcf_chrom21.rda"))
@@ -130,26 +130,30 @@ vcf_chrom21@meta
 # View the eight item in the meta data
 vcf_chrom21@meta[[8]]
 
+## ---- echo=FALSE, eval = TRUE--------------------------------------------
+load(url("https://github.com/simrvprojects/1000-Genomes-Exon-Data/raw/master/Vignette%20Data/muts.rda"))
+
+## ---- echo = TRUE, eval = FALSE------------------------------------------
+#  # Extract and store the mutation data using the vcfR function vcfR2tidy
+#  #
+#  # NOTE: setting info_only = TRUE since we do not need to re-process the genotype data
+#  #
+#  # To include INFO variables, we supply a list of variable names to "info_fields".  The
+#  # names of these variables must corresponds with the INFO variable names defined in the
+#  # meta data. We specify each variable type, by variable name, using the "info_types"
+#  # argument.  Each INFO variable type is available in the meta data. Note that the info
+#  # types for float varibles are set to numeric, i.e. "n".
+#  
+#  muts <- vcfR2tidy(vcf_chrom21,
+#                    info_only = TRUE,
+#                    info_fields = c("AF", "AC", "NS", "AN",
+#                                    "EAS_AF", "EUR_AF", "AFR_AF",
+#                                    "AMR_AF", "SAS_AF", "DP"),
+#                    info_types = c(AF = "n", AC = "i", NS = "i", AN = "i",
+#                                   EAS_AF = "n", EUR_AF = "n", AFR_AF = "n",
+#                                   AMR_AF = "n", SAS_AF = "n", DP = "i"))
+
 ## ------------------------------------------------------------------------
-# Extract and store the mutation data using vcfR2tidy
-#
-# NOTE: setting info_only = TRUE since we do not need to re-process the genotype data
-#
-# To include INFO variables, we supply a list of variable names to "info_fields".  The 
-# names of these variables must corresponds with the INFO variable names defined in the 
-# meta data. We specify each variable type, by variable name, using the "info_types" 
-# argument.  Each INFO variable type is available in the meta data. Note that the info 
-# types for float varibles are set to numeric, i.e. "n".
-
-muts <- vcfR2tidy(vcf_chrom21, 
-                  info_only = TRUE,
-                  info_fields = c("AF", "AC", "NS", "AN",
-                                  "EAS_AF", "EUR_AF", "AFR_AF", 
-                                  "AMR_AF", "SAS_AF", "DP"),
-                  info_types = c(AF = "n", AC = "i", NS = "i", AN = "i",
-                                 EAS_AF = "n", EUR_AF = "n", AFR_AF = "n", 
-                                 AMR_AF = "n", SAS_AF = "n", DP = "i"))
-
 # View a summary of the output
 summary(muts)
 
@@ -246,7 +250,7 @@ data("hg_apopPath")
 # import SNV data for chromosomes 21 and 22 and identify SNVs located in the 
 # pathway defined by hg_apopPath 
 EXdata = load_1KG(chrom = 21:22, 
-                        pathway_df = hg_apopPath)
+                  pathway_df = hg_apopPath)
 
 # determine the structure of EXdata
 str(EXdata)

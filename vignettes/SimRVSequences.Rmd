@@ -204,9 +204,13 @@ From the output above, we see that `EXhaps` is a sparse matrix of class dgCMatri
 
 ## Option 2: Import and Format VCF File Data
 ### Import VCF File to `R`
+
+**Please note: this portion of the vignette uses the `R` package `vcfR` to import and manipulate vcf data.  Unfortunately, this package is not available for flavor `r-patched-solaris-x86` and so interested users without access to `vcfR` will need determine a suitable alternative.  Users without access to `vcfR` can find the output from the applicable code chunks below at https://github.com/simrvprojects/1000-Genomes-Exon-Data/raw/master/Vignette%20Data.**
+
+
 Importing vcf data using the `vcfR` package [8] may be accomplished with the `read.vcfR` function.  To import a vcf file the user supplies the file path to the argument `file` of the `read.vcfR` function. For example, suppose the vcf file named "exons_chr21.vcf.gz" was downloaded from https://github.com/simrvprojects/1000-Genomes-Exon-Data/tree/master/Exon%20Data and is stored in a folder named "Data" in the "C" directory. We import "exons_chr21.vcf.gz" using the `read.vcfR` function as follows:
 
-```{r}
+```{r, eval = FALSE}
 # load the vcfR package
 library(vcfR)
 ```
@@ -220,6 +224,7 @@ vcf_file_path <- "C:/Data/exons_chr21.vcf.gz"
 # import vcf file
 vcf_chrom21 <- read.vcfR(vcf_file_path)
 ```
+
 ```{r}
 # determine the structure of vcf_chrom21
 str(vcf_chrom21)
@@ -325,8 +330,11 @@ The description above indicates that `AF` is a float variable which represents t
 
 The information contained in the `INFO` field is valuable; however, its current semi-colon separated format is undesirable.  The `vcfR` package's `vcfR2tidy` function can be used to improve the format of the fixed data, including the `INFO` field.  We now demonstrate how to use `vcfR2tidy` to format the fixed data for this example.  For additional information on the `vcfR2tidy` function please execute `help(vcfR2tidy)` in the console.
 
-```{r}
-# Extract and store the mutation data using vcfR2tidy
+```{r, echo=FALSE, eval = TRUE}
+load(url("https://github.com/simrvprojects/1000-Genomes-Exon-Data/raw/master/Vignette%20Data/muts.rda"))
+```
+```{r, echo = TRUE, eval = FALSE}
+# Extract and store the mutation data using the vcfR function vcfR2tidy
 #
 # NOTE: setting info_only = TRUE since we do not need to re-process the genotype data
 #
@@ -344,10 +352,12 @@ muts <- vcfR2tidy(vcf_chrom21,
                   info_types = c(AF = "n", AC = "i", NS = "i", AN = "i",
                                  EAS_AF = "n", EUR_AF = "n", AFR_AF = "n", 
                                  AMR_AF = "n", SAS_AF = "n", DP = "i"))
-
+```
+```{r}
 # View a summary of the output
 summary(muts)
 ```
+
 
 From the output above, we see that `vcfR2tidy` returns two items named `fix` and `meta`.  The information we require is contained in the first item named `fix`. 
 
@@ -506,7 +516,7 @@ data("hg_apopPath")
 # import SNV data for chromosomes 21 and 22 and identify SNVs located in the 
 # pathway defined by hg_apopPath 
 EXdata = load_1KG(chrom = 21:22, 
-                        pathway_df = hg_apopPath)
+                  pathway_df = hg_apopPath)
 
 # determine the structure of EXdata
 str(EXdata)
