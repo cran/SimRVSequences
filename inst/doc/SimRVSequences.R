@@ -62,9 +62,9 @@ nrow(EXmuts)
 # View the first 30 mutations of the first 15 haplotypes in EXhaps
 EXhaps[1:15, 1:30]
 
-## ---- eval = FALSE-------------------------------------------------------
+## ---- echo = TRUE, eval = FALSE------------------------------------------
 #  # load the vcfR package
-#  library(vcfR)
+#   library(vcfR)
 
 ## ---- echo = FALSE-------------------------------------------------------
 load(url("https://github.com/simrvprojects/1000-Genomes-Exon-Data/raw/master/Vignette%20Data/vcf_chrom21.rda"))
@@ -75,10 +75,6 @@ load(url("https://github.com/simrvprojects/1000-Genomes-Exon-Data/raw/master/Vig
 #  
 #  # import vcf file
 #  vcf_chrom21 <- read.vcfR(vcf_file_path)
-
-## ------------------------------------------------------------------------
-# determine the structure of vcf_chrom21
-str(vcf_chrom21)
 
 ## ------------------------------------------------------------------------
 # View the first five rows and columns of the genotype data

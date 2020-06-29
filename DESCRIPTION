@@ -1,7 +1,7 @@
 Package: SimRVSequences
 Type: Package
 Title: Simulate Genetic Sequence Data for Pedigrees
-Version: 0.2.5
+Version: 0.2.7
 Authors@R: c(person("Christina", "Nieuwoudt", 
                     role = c("aut", "cre"),
                     email = "cnieuwou@sfu.ca"),
@@ -24,8 +24,8 @@ LazyData: true
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-06-15 01:03:48 UTC; cnieuwoudt
+Packaged: 2020-06-28 19:03:28 UTC; cnieuwoudt
 Author: Christina Nieuwoudt [aut, cre],
   Jinko Graham [aut]
 Repository: CRAN
-Date/Publication: 2020-06-15 12:20:12 UTC
+Date/Publication: 2020-06-29 17:30:17 UTC
